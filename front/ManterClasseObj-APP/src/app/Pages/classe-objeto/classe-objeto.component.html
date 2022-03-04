@@ -1,0 +1,58 @@
+<div class="container" style="margin-top: 20px;">
+  <div class="row align-items-center">
+
+    <div class="col-auto">
+      <span><strong>Descrição</strong></span>
+    </div>
+
+  </div>
+
+  <form class="was-validated" method="post" novalidate autocomplete="off" #form="ngForm"
+  (submit)="onSubmit(form)">
+    <div class="form-inline">
+      <div class="row">
+        <div class="col col-sm-12 col-md-12 col-lg-12">
+          <div class="form-group mb-2">
+            <input class="form-control" type="text" name="search" placeholder=""
+            [(ngModel)]="service.formDataClasse.descricao" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto" style="text-align: right;">
+      <button (click)="updateRecord(this.form)" type="submit" class="btn btn-success" [disabled]="form.invalid">
+        <i class="fas fa-plus"></i><span style="margin-left: 10px;">Salvar</span>
+      </button>
+    </div>
+
+    <form action="" class="form-inline">
+      <div class="form-group mb-4"></div>
+    </form>
+
+    <table class="table table-secondary table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Código</th>
+          <th class="col-xs-10 col-sm-10 col-md-10 col-lg-10">Descrição</th>
+          <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="text-align: center;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let classe of service.listClasse">
+          <td>{{classe.id}}</td>
+          <td>{{classe.descricao}}</td>
+          <td>
+            <button (click)="clicarPreencher(classe)" type="button" class="btn btn-sm btn-outline-primary btnAction m-1">
+              <i class="fas fa-pen"></i>
+            </button>
+
+            <button type="button" class="btn btn-sm btn-outline-danger btnAction">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
