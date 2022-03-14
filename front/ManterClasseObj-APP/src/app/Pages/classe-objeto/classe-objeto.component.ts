@@ -4,7 +4,8 @@ import { ClasseRicardo } from 'src/app/Shared/classe.model';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-classe-objeto',
@@ -14,19 +15,21 @@ import { NgForm } from '@angular/forms';
 export class ClasseObjetoComponent implements OnInit {
 
   public classes: ClasseRicardo[] = [];
-
   public classe: any = [];
-
   service: ClasseService;
-
   router: RouterModule;
+  closeResult: string = '';
+  filterTerm: string = '';
+  filterTerm2: string = '';
 
   constructor(
 
     private http: HttpClient,
     service: ClasseService,
     router: Router,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
 
   ) {
 
@@ -37,19 +40,24 @@ export class ClasseObjetoComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.refreshList();
-    /* this.getClasses(); */
   }
 
   onSubmit(form: NgForm) {
     this.service.postClasse().subscribe(
       response => {
 
-        /* this.getClasses(); */
         this.resetForm(form);
         this._toastrService.success("Classe registrada e ativa");
         this.service.refreshList();
 
       },
+
+      (error) => {
+        if (error.status == 400) {
+          console.log(error);
+          this._toastrService.error(error.error);
+        }
+      }
 
     )
   }
@@ -68,15 +76,23 @@ export class ClasseObjetoComponent implements OnInit {
 
   }
 
+  objetoForm = this.formBuilder.group({
+    descricao: [null, Validators.required]
+  })
+
   clicarPreencher(classe: ClasseRicardo) {
     this.service.formDataClasse = Object.assign({}, classe);
   }
 
-  updateRecord(form: NgForm) {
+  resetObj() {
+    this.service.formDataClasse = new ClasseRicardo();
+  }
+
+  updateRecord() {
     this.service.putClasse().subscribe(
       (res: any) => {
         this.getClasses();
-        this.resetForm(form);
+        this.resetObj();
         this._toastrService.info(' Editado com sucesso.');
         this.service.refreshList();
       },
@@ -90,6 +106,45 @@ export class ClasseObjetoComponent implements OnInit {
 
     );
 
+  }
+
+  deleteLogico(obj: ClasseRicardo) {
+    this.service.putClasseStatus(obj.id).subscribe(
+      res => {
+        /* this.getClasses();
+        this.resetObj(); */
+        this.service.formDataClasse.ativo = false;
+        this._toastrService.info('Registro apagado');
+        this.service.refreshList();
+        console.log(res)
+      },
+
+      (error) => {
+        if (error.status == 400) {
+          console.log(error);
+          this._toastrService.error(error.error);
+        }
+      }
+
+    );
+
+  }
+
+  open(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
 }

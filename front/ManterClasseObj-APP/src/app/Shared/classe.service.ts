@@ -25,6 +25,10 @@ export class ClasseService {
     return this.http.put(`${this.baseUrlClasse}/${this.formDataClasse.id}`, this.formDataClasse);
   }
 
+  putClasseStatus(id: number) {
+    return this.http.put(`${this.baseUrlClasse}/${id}`, this.formDataClasse);
+  }
+
   deleteClasse(id: number) {
     return this.http.delete(`${this.baseUrlClasse}/${id}`);
   }

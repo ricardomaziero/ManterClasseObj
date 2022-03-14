@@ -14,14 +14,13 @@
         <div class="col col-sm-12 col-md-12 col-lg-12">
           <div class="form-group mb-2">
             <input class="form-control" type="text" name="search" placeholder=""
-            [(ngModel)]="service.formDataClasse.descricao" />
+            [(ngModel)]="service.formDataClasse.descricao" required/>
           </div>
         </div>
       </div>
     </div>
-
     <div class="col-auto" style="text-align: right;">
-      <button (click)="updateRecord(this.form)" type="submit" class="btn btn-success" [disabled]="form.invalid">
+      <button type="submit" class="btn btn-success" [disabled]="form.invalid">
         <i class="fas fa-plus"></i><span style="margin-left: 10px;">Salvar</span>
       </button>
     </div>
@@ -39,15 +38,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let classe of service.listClasse">
+        <tr class="table-secondary">
+          <td><input class="form-control" type="text" placeholder="Código" [(ngModel)]="filterTerm" [ngModelOptions]="{standalone: true}"></td>
+          <td><input class="form-control" type="text" placeholder="Descrição" [(ngModel)]="filterTerm2" [ngModelOptions]="{standalone: true}"></td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let classe of service.listClasse | filter: filterTerm | filter: filterTerm2">
           <td>{{classe.id}}</td>
           <td>{{classe.descricao}}</td>
           <td>
-            <button (click)="clicarPreencher(classe)" type="button" class="btn btn-sm btn-outline-primary btnAction m-1">
+            <button (click)="clicarPreencher(classe)" (click)="open(modalObjEdit)" type="button" class="btn btn-sm btn-outline-primary btnAction m-1">
               <i class="fas fa-pen"></i>
             </button>
 
-            <button type="button" class="btn btn-sm btn-outline-danger btnAction">
+            <button (click)="deleteLogico(classe)" method="put" type="button" class="btn btn-sm btn-outline-danger btnAction">
               <i class="fas fa-trash-alt"></i>
             </button>
           </td>
@@ -56,3 +60,23 @@
     </table>
   </form>
 </div>
+
+<ng-template #modalObjEdit let-modal [formGroup]="objetoForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar</h4>
+    <button type="button" class="btn btn-outline-danger" (click)="resetObj()" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="exampleTextarea" class="form-label sm-2">Descrição</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3" style="height: 103px;" formControlName="descricao"
+        [(ngModel)]="service.formDataClasse.descricao"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="modal.close('Save click')"
+      (click)="updateRecord()">Editar</button>
+  </div>
+</ng-template>
