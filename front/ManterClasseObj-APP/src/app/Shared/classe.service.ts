@@ -11,7 +11,7 @@ export class ClasseService {
 
   constructor(private http: HttpClient) { }
 
-  readonly baseUrlClasse = 'https://localhost:7133/api/ClasseRicardoes';
+  readonly baseUrlClasse = 'https://localhost:7194/api/ClasseRicardoes';
 
   formDataClasse: ClasseRicardo = new ClasseRicardo();
 

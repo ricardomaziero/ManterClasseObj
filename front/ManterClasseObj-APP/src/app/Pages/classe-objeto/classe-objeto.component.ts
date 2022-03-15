@@ -47,7 +47,7 @@ export class ClasseObjetoComponent implements OnInit {
       response => {
 
         this.resetForm(form);
-        this._toastrService.success("Classe registrada e ativa");
+        this._toastrService.success("Classe regisrtada ativa");
         this.service.refreshList();
 
       },
@@ -93,7 +93,7 @@ export class ClasseObjetoComponent implements OnInit {
       (res: any) => {
         this.getClasses();
         this.resetObj();
-        this._toastrService.info(' Editado com sucesso.');
+        this._toastrService.success('Editado com sucesso.');
         this.service.refreshList();
       },
 
@@ -111,9 +111,6 @@ export class ClasseObjetoComponent implements OnInit {
   deleteLogico(obj: ClasseRicardo) {
     this.service.putClasseStatus(obj.id).subscribe(
       res => {
-        /* this.getClasses();
-        this.resetObj(); */
-        this.service.formDataClasse.ativo = false;
         this._toastrService.info('Registro apagado');
         this.service.refreshList();
         console.log(res)
