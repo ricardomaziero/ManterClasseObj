@@ -77,7 +77,7 @@ export class ClasseObjetoComponent implements OnInit {
   }
 
   objetoForm = this.formBuilder.group({
-    descricao: [null, Validators.required]
+    descricao: []
   })
 
   clicarPreencher(classe: ClasseRicardo) {
@@ -90,7 +90,7 @@ export class ClasseObjetoComponent implements OnInit {
 
   updateRecord() {
     this.service.putClasse().subscribe(
-      (res: any) => {
+      () => {
         this.getClasses();
         this.resetObj();
         this._toastrService.success('Editado com sucesso.');
@@ -98,7 +98,7 @@ export class ClasseObjetoComponent implements OnInit {
       },
 
       (error) => {
-        if (error.status == 400) {
+        if (error.status == 400 || error.status == 500) {
           console.log(error);
           this._toastrService.error(error.error);
         }
@@ -109,9 +109,9 @@ export class ClasseObjetoComponent implements OnInit {
   }
 
   deleteLogico(obj: ClasseRicardo) {
-    this.service.putClasseStatus(obj.id).subscribe(
+    this.service.putClasseStatus(obj.id, obj).subscribe(
       res => {
-        this._toastrService.info('Registro apagado');
+        this._toastrService.warning('Registro apagado');
         this.service.refreshList();
         console.log(res)
       },

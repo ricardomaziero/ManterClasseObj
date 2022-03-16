@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ManterClasseObj.Data;
-using ManterClasseObj.Model;
+using ManterClasseObj.Model; 
 
 namespace ManterClasseObj.API.Controllers
 {
@@ -26,7 +26,9 @@ namespace ManterClasseObj.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClasseRicardo>>> GetClasseRicardo()
         {
-            return await _context.ClasseRicardo.ToListAsync();
+            var res = from obj in _context.ClasseRicardo select obj;
+            res = res.Where(x => x.Ativo == true);
+            return await res.ToListAsync();
         }
 
         // GET: api/ClasseRicardoes/5
@@ -81,23 +83,16 @@ namespace ManterClasseObj.API.Controllers
         }
 
         [HttpPut("{id}/status")]
-        public async Task<IActionResult> PutClasseStatusRicardo(int id)
+        public async Task<IActionResult> PutStatusClasseObjeto(int id, ClasseRicardo classeRicardo)
         {
-            ClasseRicardo dado;
-            if (id != 0)
-            {
-                dado = _context.ClasseRicardo.FirstOrDefault(x => x.Id == id);
-                if (dado == null) return NotFound();
-            }
-            else
+            if (id != classeRicardo.Id)
             {
                 return BadRequest();
             }
-
+            _context.Entry(classeRicardo).State = EntityState.Modified;
             try
             {
-                dado.Ativo = !dado.Ativo;
-                _context.ClasseRicardo.Update(dado);
+                classeRicardo.Ativo = false;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -111,13 +106,50 @@ namespace ManterClasseObj.API.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
-            // POST: api/ClasseRicardoes
-            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-            [HttpPost]
+        //[HttpPut("{id}/status")]
+        //public async Task<IActionResult> PutClasseStatusRicardo(int id, ClasseRicardo classeRicardo)
+        //{
+        //    ClasseRicardo dado;
+        //    if (id != 0)
+        //    {
+        //        dado = _context.ClasseRicardo.FirstOrDefault(x => x.Id == id);
+        //        if (dado == null) return NotFound();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(classeRicardo).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        //dado.Ativo = !dado.Ativo;
+        //        classeRicardo.Ativo = false;
+        //        _context.ClasseRicardo.Update(classeRicardo);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ClasseRicardoExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+
+        // POST: api/ClasseRicardoes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
         public async Task<ActionResult<ClasseRicardo>> PostClasseRicardo(ClasseRicardo classeRicardo)
         {
             _context.ClasseRicardo.Add(classeRicardo);

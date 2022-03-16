@@ -11,7 +11,7 @@ export class ClasseService {
 
   constructor(private http: HttpClient) { }
 
-  readonly baseUrlClasse = 'https://localhost:7194/api/ClasseRicardoes';
+  readonly baseUrlClasse = 'http://localhost:5194/api/ClasseRicardoes';
 
   formDataClasse: ClasseRicardo = new ClasseRicardo();
 
@@ -21,12 +21,15 @@ export class ClasseService {
     return this.http.post(this.baseUrlClasse, this.formDataClasse);
   }
 
+
+  //http://localhost:5194/api/ClasseRicardoes/1?descricao=testeSwagger123
   putClasse() {
-    return this.http.put(`${this.baseUrlClasse}/${this.formDataClasse.id}`, this.formDataClasse);
+    return this.http.put(`${this.baseUrlClasse}/${this.formDataClasse.id}?descricao=${this.formDataClasse.descricao}`, this.formDataClasse);
   }
 
-  putClasseStatus(id: number) {
-    return this.http.put(`${this.baseUrlClasse}/${id}`, this.formDataClasse);
+  //http://localhost:5194/api/ClasseRicardoes/1/status
+  putClasseStatus(id: number, obj: ClasseRicardo) {
+    return this.http.put(`${this.baseUrlClasse}/${id}/status`, obj);
   }
 
   deleteClasse(id: number) {

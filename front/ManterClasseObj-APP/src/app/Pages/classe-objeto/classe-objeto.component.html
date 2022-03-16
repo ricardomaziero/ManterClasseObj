@@ -7,12 +7,12 @@
 
   </div>
 
-  <form class="was-validated" method="post" novalidate autocomplete="off" #form="ngForm"
+  <form method="post" novalidate autocomplete="off" #form="ngForm"
   (submit)="onSubmit(form)">
     <div class="form-inline">
       <div class="row">
         <div class="col col-sm-12 col-md-12 col-lg-12">
-          <div class="form-group mb-2">
+          <div class="form-group mb-2 was-validated">
             <input class="form-control" type="text" name="search" placeholder=""
             [(ngModel)]="service.formDataClasse.descricao" required/>
           </div>
