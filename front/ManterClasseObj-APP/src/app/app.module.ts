@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgbModule,
     Ng2SearchPipeModule,
     ModalModule.forRoot(),
+    NgxPaginationModule
 
   ],
   providers: [],

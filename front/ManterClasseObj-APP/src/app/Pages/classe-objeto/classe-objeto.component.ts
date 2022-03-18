@@ -23,6 +23,8 @@ export class ClasseObjetoComponent implements OnInit {
   filterTerm: string = '';
   filterTerm2: string = '';
   modalRef = {} as BsModalRef;
+  p: number = 1;
+  total: number = 0;
 
   constructor(
 
@@ -42,7 +44,7 @@ export class ClasseObjetoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.refreshList();
+    this.service.refreshList(this.p);
   }
 
   onSubmit(form: NgForm) {
@@ -51,7 +53,7 @@ export class ClasseObjetoComponent implements OnInit {
 
         this.resetForm(form);
         this._toastrService.success("Classe regisrtada ativa");
-        this.service.refreshList();
+        this.service.refreshList(this.p);
 
       },
 
@@ -101,7 +103,7 @@ export class ClasseObjetoComponent implements OnInit {
         this.getClasses();
         this.resetObj();
         this._toastrService.success('Editado com sucesso.');
-        this.service.refreshList();
+        this.service.refreshList(this.p);
       },
 
       (error) => {
@@ -119,7 +121,7 @@ export class ClasseObjetoComponent implements OnInit {
     this.service.putClasseStatus(obj.id, obj).subscribe(
       res => {
         this._toastrService.warning('Registro apagado');
-        this.service.refreshList();
+        this.service.refreshList(this.p);
         console.log(res)
       },
 
@@ -158,9 +160,8 @@ export class ClasseObjetoComponent implements OnInit {
   }
 
   confirm(): void {
-    this.deleteLogico(this.service.formDataClasse);
     this.modalRef?.hide();
-
+    this.resetObj();
   }
 
   decline(): void {
@@ -174,4 +175,8 @@ export class ClasseObjetoComponent implements OnInit {
     })
   }
 
+  pageChangeEvent(event: number){
+    this.p = event;
+    this.service.refreshList(this.p);
+  }
 }

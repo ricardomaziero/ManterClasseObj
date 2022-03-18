@@ -7,14 +7,13 @@
 
   </div>
 
-  <form method="post" novalidate autocomplete="off" #form="ngForm"
-  (submit)="onSubmit(form)">
+  <form method="post" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
     <div class="form-inline">
       <div class="row">
         <div class="col col-sm-12 col-md-12 col-lg-12">
           <div class="form-group mb-2 was-validated">
             <input class="form-control" type="text" name="search" placeholder=""
-            [(ngModel)]="service.formDataClasse.descricao" required/>
+              [(ngModel)]="service.formDataClasse.descricao" required />
           </div>
         </div>
       </div>
@@ -39,25 +38,31 @@
       </thead>
       <tbody>
         <tr class="table-secondary">
-          <td><input class="form-control" type="text" placeholder="Código" [(ngModel)]="filterTerm" [ngModelOptions]="{standalone: true}"></td>
-          <td><input class="form-control" type="text" placeholder="Descrição" [(ngModel)]="filterTerm2" [ngModelOptions]="{standalone: true}"></td>
+          <td><input class="form-control" type="text" placeholder="Código" [(ngModel)]="filterTerm"
+              [ngModelOptions]="{standalone: true}"></td>
+          <td><input class="form-control" type="text" placeholder="Descrição" [(ngModel)]="filterTerm2"
+              [ngModelOptions]="{standalone: true}"></td>
           <td></td>
         </tr>
-        <tr *ngFor="let classe of service.listClasse | filter: filterTerm | filter: filterTerm2">
+        <tr
+          *ngFor="let classe of service.listClasse | filter: filterTerm | filter: filterTerm2 | paginate: { itemsPerPage: 6, currentPage: p, totalItems: total }">
           <td>{{classe.id}}</td>
           <td>{{classe.descricao}}</td>
           <td>
-            <button (click)="clicarPreencher(classe)" (click)="open(modalObjEdit)" type="button" class="btn btn-sm btn-outline-primary btnAction m-1">
+            <button (click)="clicarPreencher(classe)" (click)="open(modalObjEdit)" type="button"
+              class="btn btn-sm btn-outline-primary btnAction m-1">
               <i class="fas fa-pen"></i>
             </button>
 
-            <button (click)="openModal(template)" (click)="onSelect(classe)" method="put" type="button" class="btn btn-sm btn-outline-danger btnAction">
+            <button (click)="openModal(template)" (click)="onSelect(classe)" method="put" type="button"
+              class="btn btn-sm btn-outline-danger btnAction">
               <i class="fas fa-trash-alt"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
   </form>
 </div>
 
@@ -83,8 +88,9 @@
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="deleteLogico(this.service.formDataClasse)">Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    <p>Tem certeza que deseja INATIVAR o registro?</p>
+    <button type="button" class="btn btn-default" (click)="deleteLogico(this.service.formDataClasse)"
+      (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
   </div>
 </ng-template>

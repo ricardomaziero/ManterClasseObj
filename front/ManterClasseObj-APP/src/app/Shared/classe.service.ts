@@ -36,8 +36,8 @@ export class ClasseService {
     return this.http.delete(`${this.baseUrlClasse}/${id}`);
   }
 
-  refreshList() {
-    this.http.get(this.baseUrlClasse).toPromise()
+  refreshList(page: number) {
+    this.http.get(this.baseUrlClasse + '?page=' + page).toPromise()
     .then(res => this.listClasse = res as ClasseRicardo[]);
   }
 

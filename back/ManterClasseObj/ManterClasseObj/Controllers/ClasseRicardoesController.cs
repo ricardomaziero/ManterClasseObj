@@ -159,7 +159,7 @@ namespace ManterClasseObj.API.Controllers
                 return BadRequest("Necessário o preenchimento de descrição");
 
             if (!ValidaDescricao(classeRicardo.Id, classeRicardo.Descricao))
-                return BadRequest("Classe do objeto já cadastrada");
+                return BadRequest("Classe do objeto cadastrada está inativa");
 
             _context.ClasseRicardo.Add(classeRicardo);
 
