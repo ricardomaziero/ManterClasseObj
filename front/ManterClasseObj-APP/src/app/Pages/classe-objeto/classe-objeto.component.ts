@@ -1,5 +1,6 @@
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ClasseService } from './../../Shared/classe.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ClasseRicardo } from 'src/app/Shared/classe.model';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +22,7 @@ export class ClasseObjetoComponent implements OnInit {
   closeResult: string = '';
   filterTerm: string = '';
   filterTerm2: string = '';
+  modalRef = {} as BsModalRef;
 
   constructor(
 
@@ -29,7 +31,8 @@ export class ClasseObjetoComponent implements OnInit {
     router: Router,
     private _toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private modalService2: BsModalService
 
   ) {
 
@@ -79,6 +82,10 @@ export class ClasseObjetoComponent implements OnInit {
   objetoForm = this.formBuilder.group({
     descricao: []
   })
+
+  onSelect(selectedItem: ClasseRicardo) {
+    this.getById(selectedItem.id);
+  }
 
   clicarPreencher(classe: ClasseRicardo) {
     this.service.formDataClasse = Object.assign({}, classe);
@@ -136,12 +143,35 @@ export class ClasseObjetoComponent implements OnInit {
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.resetObj();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.resetObj();
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService2.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.deleteLogico(this.service.formDataClasse);
+    this.modalRef?.hide();
+
+  }
+
+  decline(): void {
+    this.modalRef?.hide();
+  }
+
+  public getById(obj: number){
+    this.service.getById(obj).subscribe(res =>{
+      this.service.formDataClasse = res;
+      console.log(this.service.formDataClasse)
+    })
   }
 
 }

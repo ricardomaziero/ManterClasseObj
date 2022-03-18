@@ -262,3 +262,17 @@ C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\Mante
 C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\obj\Debug\net6.0\ManterClasseObj.genruntimeconfig.cache
 C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Certificate.dll
 C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\obj\Debug\net6.0\refint\ManterClasseObj.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.AspNetCore.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Formatting.Compact.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Sinks.Console.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Sinks.File.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Sinks.MSSqlServer.dll
+C:\Users\ricardo.maziero\Desktop\projetos\CRUD-Classe\ManterClasseObj\back\ManterClasseObj\ManterClasseObj\bin\Debug\net6.0\Serilog.Sinks.PeriodicBatching.dll

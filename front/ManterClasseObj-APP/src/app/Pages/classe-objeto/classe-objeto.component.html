@@ -51,7 +51,7 @@
               <i class="fas fa-pen"></i>
             </button>
 
-            <button (click)="deleteLogico(classe)" method="put" type="button" class="btn btn-sm btn-outline-danger btnAction">
+            <button (click)="openModal(template)" (click)="onSelect(classe)" method="put" type="button" class="btn btn-sm btn-outline-danger btnAction">
               <i class="fas fa-trash-alt"></i>
             </button>
           </td>
@@ -78,5 +78,13 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="modal.close('Save click')"
       (click)="updateRecord()">Editar</button>
+  </div>
+</ng-template>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="deleteLogico(this.service.formDataClasse)">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
   </div>
 </ng-template>

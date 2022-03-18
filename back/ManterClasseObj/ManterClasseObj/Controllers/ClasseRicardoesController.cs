@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ManterClasseObj.Data;
-using ManterClasseObj.Model; 
+using ManterClasseObj.Model;
+using Serilog;
 
 namespace ManterClasseObj.API.Controllers
 {
@@ -65,6 +66,7 @@ namespace ManterClasseObj.API.Controllers
             {
                 dado.Descricao = descricao;
                 _context.ClasseRicardo.Update(dado);
+                Log.Information("Registro atualizado com sucesso");
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -93,6 +95,7 @@ namespace ManterClasseObj.API.Controllers
             try
             {
                 classeRicardo.Ativo = false;
+                Log.Information("Registro ativo/inativo");
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -152,7 +155,16 @@ namespace ManterClasseObj.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ClasseRicardo>> PostClasseRicardo(ClasseRicardo classeRicardo)
         {
+            if (string.IsNullOrEmpty(classeRicardo.Descricao))
+                return BadRequest("Necessário o preenchimento de descrição");
+
+            if (!ValidaDescricao(classeRicardo.Id, classeRicardo.Descricao))
+                return BadRequest("Classe do objeto já cadastrada");
+
             _context.ClasseRicardo.Add(classeRicardo);
+
+            Log.Information("Registro efetuado com sucesso");
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetClasseRicardo", new { id = classeRicardo.Id }, classeRicardo);
@@ -177,6 +189,15 @@ namespace ManterClasseObj.API.Controllers
         private bool ClasseRicardoExists(int id)
         {
             return _context.ClasseRicardo.Any(e => e.Id == id);
+        }
+
+        private bool ValidaDescricao(int id, string descricao)
+        {
+            var result = from obj in _context.ClasseRicardo select obj;
+            result = result.Where(x => x.Descricao == descricao).Where(x => x.Id != id);
+            if (!result.Any())
+                return true;
+            return false;
         }
     }
 }
