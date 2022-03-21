@@ -52,7 +52,7 @@ export class ClasseObjetoComponent implements OnInit {
       response => {
 
         this.resetForm(form);
-        this._toastrService.success("Classe regisrtada ativa");
+        this._toastrService.success("Classe registrada ativa");
         this.service.refreshList(this.p);
 
       },
@@ -143,6 +143,7 @@ export class ClasseObjetoComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       this.resetObj();
@@ -166,6 +167,7 @@ export class ClasseObjetoComponent implements OnInit {
 
   decline(): void {
     this.modalRef?.hide();
+    this.resetObj();
   }
 
   public getById(obj: number){
