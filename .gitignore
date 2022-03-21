@@ -9,7 +9,7 @@ dist/
 tmp/
 app/**/*.js
 app/**/*.js.map
-environments/
+front/ManterClasseObj-APP/src/environments/environment.ts
 
 # dependencies
 node_modules/
